@@ -1,3 +1,3 @@
 build:
-	go build -v -o bin/abeshcli main/abeshcli/main.go
+	go build -v -o bin/abesh cmd/main.go
 

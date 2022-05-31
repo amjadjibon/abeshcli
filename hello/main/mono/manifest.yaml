@@ -1,0 +1,70 @@
+version: "1"
+
+capabilities:
+  - contract_id: "abesh:httpserver2"
+    values:
+      host: "0.0.0.0"
+      port: "8080"
+      default_request_timeout: "5s"
+      default_content_type: "application/json"
+      default_404_handler_enabled: "true"
+
+      s500m: |
+        {
+            "status_code": "SE_500",
+            "error_code": 9999,
+            "error_prefix": "SE_500",
+            "detail": "500 ERROR"
+        }
+
+      s404m: |
+        {
+            "status_code": "SE_404",
+            "error_code": 9999,
+            "error_prefix": "SE_404",
+            "detail": "404 ERROR"
+        }
+
+      s403m: |
+        {
+            "status_code": "SE_403",
+            "error_code": 9999,
+            "error_prefix": "SE_403",
+            "detail": "403 ERROR"
+        }
+
+      s405m: |
+        {
+            "status_code": "SE_405",
+            "error_code": 9999,
+            "error_prefix": "SE_405",
+            "detail": "405 ERROR"
+        }
+
+      s408m: |
+        {
+            "status_code": "SE_408",
+            "error_code": 9999,
+            "error_prefix": "SE_408",
+            "detail": "408 ERROR"
+        }
+
+      s499m: |
+        {
+            "status_code": "SE_499",
+            "error_code": 9999,
+            "error_prefix": "SE_499",
+            "detail": "499 ERROR"
+        }
+
+  - contract_id: "abesh:health"
+
+triggers:
+  - trigger: "abesh:httpserver2"
+    service: "abesh:health"
+    trigger_values:
+      method: "GET"
+      path: "/_abesh/v1/health"
+
+start:
+  - "abesh:httpserver2"
