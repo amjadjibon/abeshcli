@@ -10,7 +10,7 @@ change-version:
 	@git push origin "v$(VERSION)"
 
 build:
-	go build -v -o bin/abesh cmd/abesh.go
+	@go build -v -o bin/abesh abesh.go
 
 install:
-	@go install cmd/abesh.go
+	@go install abesh.go

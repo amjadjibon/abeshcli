@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 	"github.com/amjadjibon/abeshcli/constant"
 )
 
-var rootCmd = &cobra.Command{
+var RootCmd = &cobra.Command{
 	Use:     "abesh",
 	Short:   "abesh: An elegant toolkit for Go microservices",
 	Long:    `abesh: An elegant toolkit for Go microservices`,
@@ -19,13 +19,13 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(project.CmdNew)
-	rootCmd.AddCommand(run.CmdRun)
-	rootCmd.AddCommand(build.CmdBuild)
+	RootCmd.AddCommand(project.CmdNew)
+	RootCmd.AddCommand(run.CmdRun)
+	RootCmd.AddCommand(build.CmdBuild)
 }
 
 func main() {
-	if err := rootCmd.Execute(); err != nil {
+	if err := RootCmd.Execute(); err != nil {
 		log.Fatal(err)
 	}
 }
