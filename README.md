@@ -9,8 +9,7 @@ make install
 2. Global set
 ```bash
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-sudo ln -s \$GOPATH/bin/abesh /usr/local/bin/abesh
+sudo cp $GOPATH/bin/abesh /usr/local/bin/abesh
 ```
 
 * Remove Cli
