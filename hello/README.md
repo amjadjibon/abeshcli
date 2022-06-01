@@ -1,1 +1,0 @@
-# abesh-template

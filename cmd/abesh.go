@@ -8,13 +8,14 @@ import (
 	"github.com/amjadjibon/abeshcli/cmd/internal/build"
 	"github.com/amjadjibon/abeshcli/cmd/internal/project"
 	"github.com/amjadjibon/abeshcli/cmd/internal/run"
+	"github.com/amjadjibon/abeshcli/constant"
 )
 
 var rootCmd = &cobra.Command{
 	Use:     "abesh",
-	Short:   "abesh: An elegant toolkit for Go microservices.",
-	Long:    `abesh: An elegant toolkit for Go microservices.`,
-	Version: "",
+	Short:   "abesh: An elegant toolkit for Go microservices",
+	Long:    `abesh: An elegant toolkit for Go microservices`,
+	Version: constant.Version,
 }
 
 func init() {

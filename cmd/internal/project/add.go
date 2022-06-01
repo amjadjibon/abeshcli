@@ -33,7 +33,7 @@ func (p *Project) Add(ctx context.Context, dir string, layout string, branch str
 		if !override {
 			return err
 		}
-		os.RemoveAll(to)
+		_ = os.RemoveAll(to)
 	}
 
 	fmt.Printf("🚀 Add service %s, layout repo is %s, please wait a moment.\n\n", p.Name, layout)
@@ -58,14 +58,13 @@ func (p *Project) Add(ctx context.Context, dir string, layout string, branch str
 
 	base.Tree(to, dir)
 
-	fmt.Printf("\n🍺 Repository creation succeeded %s\n", color.GreenString(p.Name))
-	fmt.Print("💻 Use the following command to add a project 👇:\n\n")
+	fmt.Printf("\n🍺 Project creation succeeded %s\n", color.GreenString(p.Name))
+	fmt.Print("💻 Use the following command to start the project 👇:\n\n")
 
 	fmt.Println(color.WhiteString("$ cd %s", p.Name))
-	fmt.Println(color.WhiteString("$ go generate ./..."))
-	fmt.Println(color.WhiteString("$ go build -o ./bin/ ./... "))
-	fmt.Println(color.WhiteString("$ ./bin/%s -conf ./configs\n", p.Name))
-	fmt.Println("			🤝 Thanks for using Kratos")
-	fmt.Println("	📚 Tutorial: https://go-kratos.dev/docs/getting-started/start")
+	fmt.Println(color.WhiteString("$ go mod download"))
+	fmt.Println(color.WhiteString("$ go mod tidy"))
+	fmt.Println(color.WhiteString("$ abesh run"))
+	fmt.Println("Thanks for using abesh")
 	return nil
 }

@@ -35,7 +35,7 @@ func (p *Project) New(ctx context.Context, dir string, layout string, branch str
 		if !override {
 			return err
 		}
-		os.RemoveAll(to)
+		_ = os.RemoveAll(to)
 	}
 	fmt.Printf("🚀 Creating service %s, layout repo is %s, please wait a moment.\n\n", p.Name, layout)
 	repo := base.NewRepo(layout, branch)
@@ -47,13 +47,7 @@ func (p *Project) New(ctx context.Context, dir string, layout string, branch str
 	if err := repo.CopyTo(ctx, to, modulePath, []string{".git", ".github"}); err != nil {
 		return err
 	}
-	// e := os.Rename(
-	// 	path.Join(to, "cmd", "server"),
-	// 	path.Join(to, "cmd", p.Name),
-	// )
-	// if e != nil {
-	// 	return e
-	// }
+
 	base.Tree(to, dir)
 
 	fmt.Printf("\n🍺 Project creation succeeded %s\n", color.GreenString(p.Name))

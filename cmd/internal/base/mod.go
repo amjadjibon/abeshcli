@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 
 	"golang.org/x/mod/modfile"
@@ -41,22 +40,4 @@ func ModuleVersion(path string) (string, error) {
 			return path + str[i:], nil
 		}
 	}
-}
-
-// KratosMod returns kratos mod.
-func KratosMod() string {
-	// go 1.15+ read from env GOMODCACHE
-	cacheOut, _ := exec.Command("go", "env", "GOMODCACHE").Output()
-	cachePath := strings.Trim(string(cacheOut), "\n")
-	pathOut, _ := exec.Command("go", "env", "GOPATH").Output()
-	gopath := strings.Trim(string(pathOut), "\n")
-	if cachePath == "" {
-		cachePath = filepath.Join(gopath, "pkg", "mod")
-	}
-	if path, err := ModuleVersion("github.com/go-kratos/kratos/v2"); err == nil {
-		// $GOPATH/pkg/mod/github.com/go-kratos/kratos@v2
-		return filepath.Join(cachePath, path)
-	}
-	// $GOPATH/src/github.com/go-kratos/kratos
-	return filepath.Join(gopath, "src", "github.com", "go-kratos", "kratos")
 }

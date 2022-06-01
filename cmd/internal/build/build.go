@@ -31,26 +31,26 @@ func init() {
 }
 
 // Build project.
-func Build(cmd *cobra.Command, args []string) {
+func Build(_ *cobra.Command, args []string) {
 	var dir string
 	if len(args) > 0 {
 		dir = args[0]
 	}
 	base, err := os.Getwd()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err)
 		return
 	}
 	if dir == "" {
 		// find the directory containing the cmd/*
 		cmdPath, err := findCMD(base)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err)
+			_, _ = fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err)
 			return
 		}
 		switch len(cmdPath) {
 		case 0:
-			fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", "The cmd directory cannot be found in the current directory")
+			_, _ = fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", "The cmd directory cannot be found in the current directory")
 			return
 		case 1:
 			for _, v := range cmdPath {
@@ -87,7 +87,7 @@ func Build(cmd *cobra.Command, args []string) {
 	fd.Stderr = os.Stderr
 	fd.Dir = dir
 	if err := fd.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err.Error())
+		_, _ = fmt.Fprintf(os.Stderr, "\033[31mERROR: %s\033[m\n", err.Error())
 		return
 	}
 }
@@ -103,7 +103,7 @@ func findCMD(base string) (map[string]string, error) {
 	var root bool
 	next := func(dir string) (map[string]string, error) {
 		cmdPath := make(map[string]string)
-		err := filepath.Walk(dir, func(walkPath string, info os.FileInfo, err error) error {
+		err = filepath.Walk(dir, func(walkPath string, info os.FileInfo, err error) error {
 			// multi level directory is not allowed under the cmdPath directory, so it is judged that the path ends with cmdPath.
 			if strings.HasSuffix(walkPath, "cmd") {
 				paths, err := os.ReadDir(walkPath)
