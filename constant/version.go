@@ -1,4 +1,4 @@
 package constant
 
 // Version constant of the abeshcli
-const Version = "0.0.2"
+const Version = "0.0.3"
