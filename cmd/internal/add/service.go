@@ -37,6 +37,8 @@ var CmdAddService = &cobra.Command{
 			path = "GET"
 		}
 
+		var packageName = strings.ToLower(service)
+
 		if !IsInAllowedMethodList(method) {
 			fmt.Println("method not allowed")
 			os.Exit(0)
@@ -147,7 +149,7 @@ var CmdAddService = &cobra.Command{
 			ModulePath    string
 		}{
 			TimeStamp:     time.Now().Format(time.RFC850),
-			PackageName:   strings.ToLower(service),
+			PackageName:   packageName,
 			InterfaceName: strings.ToUpper(string(service[0])) + service[1:],
 			InterfaceRune: string(service[0]),
 			ServiceName:   "abesh_" + service,
@@ -198,7 +200,7 @@ var CmdAddService = &cobra.Command{
 		}
 
 		var mainFilePath = "main/mono/main.go"
-		var importStr = "	_ \"github.com/amjadjibon/hello/capability/echo\""
+		var importStr = "	_ \"" + modulePath + "/capability/" + packageName + "\""
 
 		err = utils.InsertStringToFile2(mainFilePath, importStr)
 		if err != nil {
