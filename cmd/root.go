@@ -1,10 +1,9 @@
 package cmd
 
 import (
-	"log"
-
 	"github.com/spf13/cobra"
 
+	"github.com/amjadjibon/abeshcli/cmd/internal/add"
 	"github.com/amjadjibon/abeshcli/cmd/internal/build"
 	"github.com/amjadjibon/abeshcli/cmd/internal/project"
 	"github.com/amjadjibon/abeshcli/cmd/internal/run"
@@ -22,10 +21,5 @@ func init() {
 	RootCmd.AddCommand(project.CmdNew)
 	RootCmd.AddCommand(run.CmdRun)
 	RootCmd.AddCommand(build.CmdBuild)
-}
-
-func main() {
-	if err := RootCmd.Execute(); err != nil {
-		log.Fatal(err)
-	}
+	RootCmd.AddCommand(add.CmdAdd)
 }
